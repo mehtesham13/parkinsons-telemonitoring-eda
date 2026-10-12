@@ -1,71 +1,46 @@
 # Parkinson's Disease Telemonitoring: Exploratory Data Analysis
 
-This project performs an in-depth Exploratory Data Analysis (EDA) on the **Parkinson's Telemonitoring Dataset**. The goal is to understand the relationships between various biomedical voice measurements and the clinical assessment of Parkinson's disease severity using the Unified Parkinson's Disease Rating Scale (UPDRS).
+Which voice measurements track Parkinson's disease severity? This project explores the UCI Parkinson's Telemonitoring dataset and relates biomedical voice features to the clinical UPDRS scores.
 
-##  Project Overview
+![Correlation heatmap](correlation_heatmap.png)
 
-The dataset contains a range of biomedical voice measurements from 42 people with early-stage Parkinson's disease. This analysis focuses on:
+## Data
 
-* **Target Variables:** Predicting `motor_UPDRS` and `total_UPDRS`.
-* **Feature Analysis:** Identifying which vocal characteristics (Jitter, Shimmer, HNR, etc.) correlate most strongly with disease progression.
-* **Multicollinearity:** Assessing the high degree of redundancy across telemonitoring features.
+5,875 voice recordings from 42 people with early-stage Parkinson's disease, collected at home over six months. Each recording has 16 voice measures (jitter, shimmer, HNR, RPDE, DFA, PPE) plus age, sex and two targets: `motor_UPDRS` and `total_UPDRS`.
 
-##  Key Findings
+## What the analysis covers
 
-### 1. Target Distributions
+- Distribution of both UPDRS targets
+- Correlation of every feature with each target
+- Multicollinearity between voice features
 
-The UPDRS scores show a wide range of severity across the patient group.
+## Findings
 
-* **Motor UPDRS:** Primarily reflects physical movement symptoms.
-* **Total UPDRS:** A broader measure of the disease's overall impact.
+- **Strongest signals:** age, HNR (harmonics-to-noise ratio) and PPE (pitch period entropy) have the strongest relationships with UPDRS.
+- **HNR is negatively correlated with severity:** noisier voices go with higher UPDRS scores.
+- **Heavy redundancy:** 29 feature pairs have correlation above 0.8, and `Shimmer:APQ3` and `Shimmer:DDA` are perfectly correlated. A model built on this data should drop duplicates or use PCA first.
 
-### 2. Feature Importance & Correlation
+![Feature importance](feature_importance.png)
 
-Through the correlation analysis, several key insights were uncovered:
+## Files
 
-* **Top Predictors:** `age`, `HNR` (Harmonics-to-Noise Ratio), and `PPE` (Pitch Period Entropy) emerged as some of the most significant indicators for UPDRS scores.
-* **Multicollinearity:** The analysis identified **29 highly correlated feature pairs** ($r > 0.8$). For example, `Shimmer:APQ3` and `Shimmer:DDA` have a perfect correlation ($r = 1.0$), suggesting that feature reduction (like PCA) would be beneficial for future modeling.
+| File | Contents |
+|---|---|
+| `parkinsons_eda_project.ipynb` | Cleaning, plots and statistical analysis |
+| `parkinsons_telemonitoring.csv` | Raw dataset |
+| `correlation_matrix.csv` | Feature-to-feature correlations |
+| `feature_importance_results.csv` | Feature rankings against the targets |
+| `*.png` | Charts exported from the notebook |
 
-### 3. Voice Measurement Insights
+## How to run
 
-* **Jitter & Shimmer:** These measures of frequency and amplitude instability show moderate correlations with disease severity.
-* **HNR:** Showed a consistent negative correlation with UPDRS, indicating that lower voice quality (more noise) is associated with higher disease severity.
-
-##  Tech Stack
-
-* **Language:** Python
-* **Libraries:** `Pandas`, `NumPy`, `Matplotlib`, `Seaborn`
-* **Tools:** Jupyter Notebook / Google Colab
-
-##  Project Structure
-
-* `parkinsons_eda_project.ipynb`: The main notebook containing data cleaning, visualization, and statistical analysis.
-* `parkinsons_telemonitoring.csv`: The raw dataset used for analysis.
-* `correlation_matrix.csv`: Exported data showing the relationship between all features.
-* `Visuals/`: Folder containing generated heatmaps, distributions, and feature importance plots.
-
-##  How to Run
-
-1. Clone this repository:
 ```bash
-git clone https://github.com/your-username/parkinsons-telemonitoring-eda.git
-
-```
-
-
-2. Install the required dependencies:
-```bash
+git clone https://github.com/mehtesham13/Exploratory-Data-Analysis.git
+cd Exploratory-Data-Analysis
 pip install pandas numpy matplotlib seaborn
-
+jupyter notebook parkinsons_eda_project.ipynb
 ```
 
+Data source: [UCI Machine Learning Repository](https://archive.ics.uci.edu/dataset/189/parkinsons+telemonitoring)
 
-3. Open `parkinsons_eda_project.ipynb` in Jupyter Notebook or Google Colab to view the analysis.
-
----
-
-**Author:** Muhammad Ehtesham
-
-**LinkedIn:** [(https://www.linkedin.com/in/muhammad-ehtesham-dsa)]
-
----
+Author: Muhammad Ehtesham · [LinkedIn](https://www.linkedin.com/in/muhammad-ehtesham-dsa)
