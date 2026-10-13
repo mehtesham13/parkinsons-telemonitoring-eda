@@ -35,8 +35,8 @@ Which voice measurements track Parkinson's disease severity? This project explor
 ## How to run
 
 ```bash
-git clone https://github.com/mehtesham13/Exploratory-Data-Analysis.git
-cd Exploratory-Data-Analysis
+git clone https://github.com/mehtesham13/parkinsons-telemonitoring-eda.git
+cd parkinsons-telemonitoring-eda
 pip install pandas numpy matplotlib seaborn
 jupyter notebook parkinsons_eda_project.ipynb
 ```
